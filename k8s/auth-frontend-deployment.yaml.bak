@@ -23,7 +23,7 @@ spec:
       containers:
       - name: camp-auth
         image: ghcr.io/elishatheodore/kubernetes-microservices/camp-auth:latest
-        imagePullPolicy: Never
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
           name: http

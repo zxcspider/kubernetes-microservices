@@ -23,7 +23,7 @@ spec:
       containers:
       - name: camp-backend
         image: ghcr.io/elishatheodore/kubernetes-microservices/camp-backend:latest
-        imagePullPolicy: Never
+        imagePullPolicy: Always
         ports:
         - containerPort: 8000
           name: http
@@ -91,7 +91,8 @@ spec:
         - name: uploads-storage
           mountPath: /app/uploads
         - name: database-storage
-          mountPath: /app/data
+          mountPath: /app/camp.db
+          subPath: camp.db
       volumes:
       - name: uploads-storage
         persistentVolumeClaim:

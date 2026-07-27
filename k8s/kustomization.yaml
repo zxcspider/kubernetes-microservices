@@ -49,6 +49,7 @@ patchesStrategicMerge:
     kind: Deployment
     metadata:
       name: camp-backend
+      namespace: camp
     spec:
       template:
         spec:

@@ -105,7 +105,7 @@ Create auth image name
 {{- $registry := .Values.global.imageRegistry | default .Values.image.registry }}
 {{- $repository := .Values.auth.image.repository }}
 {{- $tag := .Values.image.tag | default .Chart.AppVersion }}
-{{- printf "%s/%s/%s:%s" $registry $Values.image.repository $repository $tag }}
+{{- printf "%s/%s:%s" $registry $repository $tag }}
 {{- end }}
 
 {{/*

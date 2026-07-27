@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: camp-auth
+  name: camp-web
   namespace: camp
   labels:
     app: camp
-    component: auth-frontend
+    component: web-frontend
     version: v1
 spec:
   replicas: 2
   selector:
     matchLabels:
       app: camp
-      component: auth-frontend
+      component: web-frontend
   template:
     metadata:
       labels:
         app: camp
-        component: auth-frontend
+        component: web-frontend
         version: v1
     spec:
       containers:
-      - name: camp-auth
-        image: ghcr.io/elishatheodore/kubernetes-microservices/camp-auth:latest
-        imagePullPolicy: Never
+      - name: camp-web
+        image: ghcr.io/elishatheodore/kubernetes-microservices/camp-web:latest
+        imagePullPolicy: Always
         ports:
-        - containerPort: 80
+        - containerPort: 3004
           name: http
           protocol: TCP
         resources:
@@ -38,7 +38,7 @@ spec:
         livenessProbe:
           httpGet:
             path: /
-            port: 80
+            port: 3004
           initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 5
@@ -46,7 +46,7 @@ spec:
         readinessProbe:
           httpGet:
             path: /
-            port: 80
+            port: 3004
           initialDelaySeconds: 5
           periodSeconds: 5
           timeoutSeconds: 3
@@ -57,18 +57,18 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: camp-auth-service
+  name: camp-web-service
   namespace: camp
   labels:
     app: camp
-    component: auth-frontend
+    component: web-frontend
 spec:
   type: ClusterIP
   ports:
   - port: 80
-    targetPort: 80
+    targetPort: 3004
     protocol: TCP
     name: http
   selector:
     app: camp
-    component: auth-frontend
+    component: web-frontend

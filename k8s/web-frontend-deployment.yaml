@@ -23,7 +23,7 @@ spec:
       containers:
       - name: camp-web
         image: ghcr.io/elishatheodore/kubernetes-microservices/camp-web:latest
-        imagePullPolicy: Always
+        imagePullPolicy: Never
         ports:
         - containerPort: 3004
           name: http

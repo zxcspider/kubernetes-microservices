@@ -1,0 +1,95 @@
+﻿# 基于 values-dev.yaml 修复
+
+global:
+  imageRegistry: ghcr.io
+
+image:
+  registry: ghcr.io
+  repository: kubernetes-microservices
+  pullPolicy: Never
+  tag: "latest"
+
+replicaCount:
+  backend: 2
+  web: 2
+  auth: 2
+
+ingress:
+  enabled: false
+
+backend:
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+  autoscaling:
+    enabled: false
+  persistence:
+    uploads:
+      enabled: false
+    database:
+      enabled: false
+
+web:
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "100m"
+    limits:
+      memory: "256Mi"
+      cpu: "200m"
+  autoscaling:
+    enabled: false
+
+auth:
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "100m"
+    limits:
+      memory: "256Mi"
+      cpu: "200m"
+  autoscaling:
+    enabled: false
+
+config:
+  databaseUrl: "sqlite:///app/camp.db"
+  debug: true
+  logLevel: info
+  apiV1Prefix: "/api/v1"
+  appName: "Cloud Asset Management Platform"
+  appVersion: "1.0.0"
+  storageType: local
+  localStoragePath: "/app/uploads"
+  maxFileSize: "52428800"
+  corsOrigins: "http://localhost:3004,http://localhost:3000"
+  pythonUnbuffered: "1"
+  pythonpath: "/app"
+
+secrets:
+  secretKey: "dev-secret-key"
+  jwtSecret: "dev-jwt-secret"
+  defaultPassword: "admin123"
+
+# 完全禁用 securityContext
+securityContext: null
+podSecurityContext: null
+
+resourceQuota:
+  enabled: false
+
+limitRange:
+  enabled: false
+
+networkPolicy:
+  enabled: false
+
+monitoring:
+  enabled: false
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

@@ -1,9 +1,8 @@
 ﻿{{- if .Values.ingress.enabled -}}
-{{- $fullName := include "camp.fullname" . -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: {{ include "camp.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "camp.labels" . | nindent 4 }}
@@ -25,7 +24,7 @@ spec:
             pathType: {{ .pathType | default "Prefix" }}
             backend:
               service:
-                name: {{ $fullName }}-{{ .service }}-service
+                name: {{ include "camp.fullname" $ }}-{{ .service }}-service
                 port:
                   number: 80
           {{- end }}
